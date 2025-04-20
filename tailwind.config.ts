@@ -7,6 +7,7 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+		"./1745127194999168391.html"
 	],
 	prefix: "",
 	theme: {
@@ -61,7 +62,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				chess: {
+					primary: '#8B5CF6',    // яркий фиолетовый
+					secondary: '#F97316',  // яркий оранжевый
+					light: '#F2FCE2',      // светло-зеленый
+					dark: '#1A1F2C',       // темно-синий
+					accent: '#D946EF'      // акцентный розовый
 				}
+			},
+			fontFamily: {
+				'comic': ['"Comic Sans MS"', 'cursive'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +95,16 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'bounce-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'bounce-slow': 'bounce-slow 3s ease-in-out infinite'
 			}
 		}
 	},
