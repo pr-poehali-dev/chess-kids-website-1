@@ -1,212 +1,174 @@
-import { useState } from "react";
 import ChessLayout from "@/components/ChessLayout";
+import ChessBoard from "@/components/ChessBoard";
 import ChessPiece from "@/components/ChessPiece";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
 
 const Rules = () => {
-  const [selectedTab, setSelectedTab] = useState("pieces");
-
   return (
     <ChessLayout>
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6 text-chess-primary">Правила шахмат</h1>
-        <p className="text-xl mb-8">
-          Шахматы — это увлекательная игра, которая развивает логическое мышление и стратегические навыки. 
-          Давай узнаем основные правила!
+      <section className="mb-10">
+        <h1 className="text-4xl font-bold mb-4 text-chess-primary">Правила шахмат</h1>
+        <p className="text-xl mb-6">
+          Узнай основные правила шахматной игры и как ходят фигуры!
         </p>
+      </section>
 
-        <Tabs defaultValue="pieces" value={selectedTab} onValueChange={setSelectedTab} className="mb-10">
-          <TabsList className="grid grid-cols-3 mb-6">
-            <TabsTrigger value="pieces">Фигуры</TabsTrigger>
-            <TabsTrigger value="rules">Основные правила</TabsTrigger>
-            <TabsTrigger value="special">Особые ходы</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="pieces" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Шахматные фигуры</CardTitle>
-                <CardDescription>
-                  В шахматах у каждого игрока есть 16 фигур: 8 пешек, 2 ладьи, 2 коня, 2 слона, ферзь и король.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {[
-                    {
-                      type: 'pawn',
-                      name: 'Пешка',
-                      description: 'Ходит вперед на одну клетку. С начальной позиции может пойти на две клетки. Бьет по диагонали.'
-                    },
-                    {
-                      type: 'rook',
-                      name: 'Ладья',
-                      description: 'Ходит по горизонтали и вертикали на любое количество клеток.'
-                    },
-                    {
-                      type: 'knight',
-                      name: 'Конь',
-                      description: 'Ходит буквой "Г": на две клетки в одном направлении и затем на одну клетку в перпендикулярном. Может перепрыгивать через фигуры.'
-                    },
-                    {
-                      type: 'bishop',
-                      name: 'Слон',
-                      description: 'Ходит по диагонали на любое количество клеток.'
-                    },
-                    {
-                      type: 'queen',
-                      name: 'Ферзь',
-                      description: 'Самая сильная фигура. Может ходить как ладья и слон — по горизонтали, вертикали и диагонали на любое количество клеток.'
-                    },
-                    {
-                      type: 'king',
-                      name: 'Король',
-                      description: 'Ходит на одну клетку в любом направлении. Самая важная фигура — если король под шахом и не может уйти, игра проиграна.'
-                    }
-                  ].map((piece) => (
-                    <div key={piece.type} className="flex items-start space-x-4 p-4 bg-chess-light rounded-lg">
-                      <div className="flex-shrink-0">
-                        <ChessPiece type={piece.type as any} color="white" size={50} />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-lg mb-1">{piece.name}</h3>
-                        <p>{piece.description}</p>
-                      </div>
+      <Tabs defaultValue="pieces" className="mb-10">
+        <TabsList className="grid grid-cols-3 w-full max-w-md mb-8">
+          <TabsTrigger value="pieces">Фигуры</TabsTrigger>
+          <TabsTrigger value="board">Доска</TabsTrigger>
+          <TabsTrigger value="rules">Ходы</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="pieces" className="animate-fade-in">
+          <div className="grid gap-8">
+            {[
+              {
+                piece: 'pawn',
+                name: 'Пешка',
+                description: 'Пешка ходит только вперёд на одну клетку. В первый ход пешка может сходить на две клетки. Бьёт пешка по диагонали на одну клетку вперёд.',
+                image: '/placeholder.svg'
+              },
+              {
+                piece: 'rook',
+                name: 'Ладья',
+                description: 'Ладья ходит по прямым линиям — горизонталям и вертикалям — на любое количество клеток.',
+                image: '/placeholder.svg'
+              },
+              {
+                piece: 'knight',
+                name: 'Конь',
+                description: 'Конь ходит буквой "Г": на две клетки по горизонтали или вертикали, а затем на одну клетку в сторону. Конь может перепрыгивать через другие фигуры.',
+                image: '/placeholder.svg'
+              },
+              {
+                piece: 'bishop',
+                name: 'Слон',
+                description: 'Слон ходит только по диагонали на любое количество клеток.',
+                image: '/placeholder.svg'
+              },
+              {
+                piece: 'queen',
+                name: 'Ферзь',
+                description: 'Ферзь — самая сильная фигура. Может ходить как ладья и слон: по прямым линиям и диагоналям на любое расстояние.',
+                image: '/placeholder.svg'
+              },
+              {
+                piece: 'king',
+                name: 'Король',
+                description: 'Король ходит на одну клетку в любом направлении. Король не может ходить на клетки, которые находятся под ударом фигур соперника.',
+                image: '/placeholder.svg'
+              }
+            ].map((item) => (
+              <Card key={item.piece} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <CardContent className="p-0">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="chess-pattern p-8 flex items-center justify-center md:w-1/4">
+                      <ChessPiece type={item.piece as any} color="white" size={100} />
                     </div>
-                  ))}
-                </div>
+                    <div className="p-6 md:w-3/4">
+                      <h3 className="text-2xl font-bold mb-2 text-chess-primary">{item.name}</h3>
+                      <p className="text-lg">{item.description}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="board" className="animate-fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold mb-4 text-chess-primary">Шахматная доска</h3>
+              <p className="text-lg mb-4">
+                Шахматная доска состоит из 64 клеток (8×8), которые чередуются между черным и белым цветом.
+              </p>
+              <p className="text-lg mb-4">
+                Горизонтальные ряды называются <strong>горизонталями</strong> и обозначаются цифрами от 1 до 8.
+              </p>
+              <p className="text-lg mb-4">
+                Вертикальные ряды называются <strong>вертикалями</strong> и обозначаются буквами от a до h.
+              </p>
+              <p className="text-lg mb-4">
+                Диагональные линии называются <strong>диагоналями</strong>.
+              </p>
+              <p className="text-lg">
+                Каждая клетка имеет своё имя, например: a1, e4, h8 и т.д.
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <ChessBoard size={350} showCoordinates />
+            </div>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="rules" className="animate-fade-in">
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold mb-2 text-chess-primary">Начало игры</h3>
+                <p className="text-lg">Игру всегда начинают белые. Игроки ходят по очереди, передвигая одну фигуру за ход.</p>
               </CardContent>
             </Card>
-          </TabsContent>
-
-          <TabsContent value="rules">
+            
             <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Основные правила игры</CardTitle>
-                <CardDescription>
-                  Чтобы начать играть в шахматы, важно знать эти основные правила.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="text-lg font-medium">
-                      Цель игры
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base">
-                      Цель игры — поставить мат королю противника. Мат — это ситуация, когда король находится под шахом (под ударом) и не может уйти от этого шаха.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger className="text-lg font-medium">
-                      Начало игры
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base">
-                      Белые всегда ходят первыми. Игроки делают ходы по очереди, передвигая одну фигуру за один ход. Нельзя пропускать ход.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-3">
-                    <AccordionTrigger className="text-lg font-medium">
-                      Шах и мат
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base">
-                      <p>Шах — это ситуация, когда король находится под угрозой взятия. Если вашему королю объявлен шах, вы должны:</p>
-                      <ul className="list-disc list-inside ml-4 mt-2">
-                        <li>Уйти королем на безопасное поле</li>
-                        <li>Взять фигуру, которая объявила шах</li>
-                        <li>Поставить другую фигуру на пути атаки (кроме случая с конем)</li>
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-4">
-                    <AccordionTrigger className="text-lg font-medium">
-                      Ничья
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base">
-                      <p>Ничья может быть объявлена в следующих случаях:</p>
-                      <ul className="list-disc list-inside ml-4 mt-2">
-                        <li>Пат — когда игрок, чья очередь хода, не может сделать ни одного хода по правилам, но его король не находится под шахом</li>
-                        <li>Недостаточность материала — если у обоих игроков недостаточно фигур для того, чтобы поставить мат</li>
-                        <li>Троекратное повторение позиции</li>
-                        <li>Правило 50 ходов — если в течение 50 ходов не было взятия фигур и хода пешкой</li>
-                        <li>По соглашению игроков</li>
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold mb-2 text-chess-primary">Взятие фигуры</h3>
+                <p className="text-lg">Если фигура ходит на поле, занятое фигурой противника, то фигура противника считается взятой и убирается с доски.</p>
               </CardContent>
             </Card>
-          </TabsContent>
-
-          <TabsContent value="special">
+            
             <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Особые ходы в шахматах</CardTitle>
-                <CardDescription>
-                  В шахматах есть несколько особых ходов, о которых важно знать.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="bg-chess-light p-6 rounded-lg">
-                    <h3 className="text-xl font-bold mb-3">Рокировка</h3>
-                    <p className="mb-3">
-                      Рокировка — это особый ход, при котором король и ладья перемещаются одновременно. Это единственный случай, когда за один ход можно переместить две фигуры.
-                    </p>
-                    <div className="flex items-center space-x-2 mb-3">
-                      <ChessPiece type="king" color="white" />
-                      <span>+</span>
-                      <ChessPiece type="rook" color="white" />
-                      <span>→</span>
-                      <span className="font-bold">Рокировка</span>
-                    </div>
-                    <p>
-                      Рокировка возможна только если:
-                    </p>
-                    <ul className="list-disc list-inside ml-4 mt-2">
-                      <li>Король и ладья еще не ходили</li>
-                      <li>Между королем и ладьей нет других фигур</li>
-                      <li>Король не находится под шахом</li>
-                      <li>Король не проходит через клетку, находящуюся под ударом вражеской фигуры</li>
-                    </ul>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold mb-2 text-chess-primary">Шах</h3>
+                <p className="text-lg">Шах — это положение, при котором король находится под ударом фигуры противника. Если королю объявлен шах, игрок должен защитить короля одним из способов:</p>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>Уйти королем на безопасное поле</li>
+                  <li>Взять фигуру, объявившую шах</li>
+                  <li>Перекрыть линию атаки своей фигурой</li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold mb-2 text-chess-primary">Мат</h3>
+                <p className="text-lg">Мат — это шах, от которого нет защиты. Если игроку объявлен мат, то игра заканчивается, и этот игрок проигрывает.</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold mb-2 text-chess-primary">Специальные ходы</h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-xl font-semibold mb-1 text-chess-secondary">Рокировка</h4>
+                    <p className="text-lg">Особый ход, при котором король и ладья перемещаются одновременно. Король перемещается на две клетки в сторону ладьи, а ладья перемещается через короля на соседнюю с ним клетку.</p>
                   </div>
-
-                  <div className="bg-chess-light p-6 rounded-lg">
-                    <h3 className="text-xl font-bold mb-3">Взятие на проходе</h3>
-                    <p className="mb-3">
-                      Взятие на проходе (en passant) — это особый ход пешки, когда она может взять вражескую пешку, прошедшую мимо неё.
-                    </p>
-                    <p>
-                      Если пешка противника с начальной позиции делает ход на две клетки и оказывается рядом с вашей пешкой, вы можете взять её на следующем ходу так, будто она продвинулась только на одну клетку.
-                    </p>
+                  <div>
+                    <h4 className="text-xl font-semibold mb-1 text-chess-secondary">Взятие на проходе</h4>
+                    <p className="text-lg">Если пешка противника из начальной позиции сразу ходит на две клетки и оказывается рядом с вашей пешкой, вы можете взять её "на проходе".</p>
                   </div>
-
-                  <div className="bg-chess-light p-6 rounded-lg">
-                    <h3 className="text-xl font-bold mb-3">Превращение пешки</h3>
-                    <p className="mb-3">
-                      Когда пешка достигает последней горизонтали доски, она может быть превращена в любую другую фигуру того же цвета (кроме короля и пешки).
-                    </p>
-                    <div className="flex items-center space-x-4">
-                      <ChessPiece type="pawn" color="white" />
-                      <span>→</span>
-                      <div className="flex space-x-2">
-                        <ChessPiece type="queen" color="white" />
-                        <ChessPiece type="rook" color="white" />
-                        <ChessPiece type="bishop" color="white" />
-                        <ChessPiece type="knight" color="white" />
-                      </div>
-                    </div>
-                    <p className="mt-3">
-                      Обычно пешку превращают в ферзя, так как это самая сильная фигура, но иногда может быть полезно превратить её в коня для немедленного шаха.
-                    </p>
+                  <div>
+                    <h4 className="text-xl font-semibold mb-1 text-chess-secondary">Превращение пешки</h4>
+                    <p className="text-lg">Когда пешка достигает последней горизонтали, она может превратиться в любую фигуру того же цвета, кроме короля.</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
-        </Tabs>
+          </div>
+        </TabsContent>
+      </Tabs>
+
+      <div className="text-center mt-16">
+        <p className="text-xl mb-4">Теперь, когда ты знаешь основные правила, можно изучить стратегии!</p>
+        <a href="/strategies" className="inline-flex items-center font-bold text-lg text-chess-primary hover:underline">
+          Перейти к стратегиям
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </a>
       </div>
     </ChessLayout>
   );

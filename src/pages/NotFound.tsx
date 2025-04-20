@@ -1,26 +1,41 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import ChessLayout from "@/components/ChessLayout";
 import ChessPiece from "@/components/ChessPiece";
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
-      <div className="text-center">
-        <div className="flex justify-center gap-6 mb-6">
-          <ChessPiece type="knight" color="white" size={80} />
-          <ChessPiece type="knight" color="black" size={80} />
+    <ChessLayout>
+      <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
+        <div className="relative mb-8">
+          <div className="absolute -top-10 -left-10 animate-bounce-slow">
+            <ChessPiece type="knight" color="white" size={80} />
+          </div>
+          <h1 className="text-9xl font-bold text-chess-primary">404</h1>
+          <div className="absolute -bottom-10 -right-10 animate-bounce-slow" style={{ animationDelay: "0.5s" }}>
+            <ChessPiece type="rook" color="white" size={80} />
+          </div>
         </div>
-        <h1 className="text-4xl font-bold mb-2 text-chess-primary">Страница не найдена</h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Похоже, эта страница ушла в другую партию
+        
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Ой! Страница не найдена</h2>
+        <p className="text-xl mb-8 max-w-md">
+          Похоже, ты сделал неправильный ход! Эта страница исчезла, как пешка после превращения.
         </p>
-        <Link to="/">
-          <Button className="bg-chess-primary hover:bg-purple-700">
-            Вернуться на главную
-          </Button>
-        </Link>
+        
+        <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex">
+          <Link to="/">
+            <Button size="lg" className="bg-chess-primary hover:bg-purple-700">
+              Вернуться на главную
+            </Button>
+          </Link>
+          <Link to="/lessons">
+            <Button size="lg" variant="outline" className="border-chess-secondary text-chess-secondary hover:bg-chess-secondary hover:text-white">
+              Перейти к урокам
+            </Button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </ChessLayout>
   );
 };
 

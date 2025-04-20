@@ -1,222 +1,250 @@
 import ChessLayout from "@/components/ChessLayout";
 import LessonCard from "@/components/LessonCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
-import { useState } from "react";
-
-const lessonsData = [
-  {
-    id: "1",
-    title: "Первые шаги в шахматах",
-    description: "Познакомься с шахматной доской и фигурами",
-    level: "начинающий",
-    imageUrl: "/placeholder.svg",
-    category: "basic"
-  },
-  {
-    id: "2",
-    title: "Как ходят фигуры",
-    description: "Изучи правила движения всех шахматных фигур",
-    level: "начинающий",
-    imageUrl: "/placeholder.svg",
-    category: "basic"
-  },
-  {
-    id: "3",
-    title: "Шах и мат",
-    description: "Научись ставить шах и мат своему сопернику",
-    level: "начинающий",
-    imageUrl: "/placeholder.svg",
-    category: "basic"
-  },
-  {
-    id: "4",
-    title: "Защита короля",
-    description: "Узнай, как защитить своего короля от атак противника",
-    level: "средний",
-    imageUrl: "/placeholder.svg",
-    category: "intermediate"
-  },
-  {
-    id: "5",
-    title: "Тактические приёмы",
-    description: "Изучи основные тактические приёмы и комбинации",
-    level: "средний",
-    imageUrl: "/placeholder.svg",
-    category: "intermediate"
-  },
-  {
-    id: "6",
-    title: "Эндшпиль",
-    description: "Улучши свою игру в заключительной стадии партии",
-    level: "продвинутый",
-    imageUrl: "/placeholder.svg",
-    category: "advanced"
-  },
-  {
-    id: "7",
-    title: "Атака на короля",
-    description: "Научись проводить атаку на короля противника",
-    level: "продвинутый",
-    imageUrl: "/placeholder.svg",
-    category: "advanced"
-  },
-  {
-    id: "8",
-    title: "Детский мат",
-    description: "Изучи самый быстрый мат в шахматах и как его избежать",
-    level: "начинающий",
-    imageUrl: "/placeholder.svg",
-    category: "basic"
-  },
-  {
-    id: "9",
-    title: "Рокировка",
-    description: "Узнай, как правильно делать рокировку и когда её применять",
-    level: "начинающий",
-    imageUrl: "/placeholder.svg",
-    category: "basic"
-  }
-];
+import { ArrowLeftIcon, ArrowRightIcon, TrophyIcon } from "lucide-react";
 
 const Lessons = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("all");
-
-  const filteredLessons = lessonsData.filter(lesson => {
-    const matchesSearch = lesson.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         lesson.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesTab = activeTab === "all" || 
-                      (activeTab === "basic" && lesson.level === "начинающий") ||
-                      (activeTab === "intermediate" && lesson.level === "средний") ||
-                      (activeTab === "advanced" && lesson.level === "продвинутый");
-    
-    return matchesSearch && matchesTab;
-  });
-
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-  };
-
+  // В реальном приложении эти данные могут приходить с сервера
+  const beginnerLessons = [
+    {
+      id: 1,
+      title: "Знакомство с фигурами",
+      description: "Узнай, как называются шахматные фигуры и как они ходят",
+      difficulty: "easy",
+      completed: true,
+      lessonNumber: 1,
+      route: "/lessons/1"
+    },
+    {
+      id: 2,
+      title: "Правила игры",
+      description: "Изучи базовые правила шахматной игры",
+      difficulty: "easy",
+      completed: true,
+      lessonNumber: 2,
+      route: "/lessons/2"
+    },
+    {
+      id: 3,
+      title: "Первая партия",
+      description: "Сыграй свою первую шахматную партию с подсказками",
+      difficulty: "easy",
+      completed: false,
+      lessonNumber: 3,
+      route: "/lessons/3"
+    },
+    {
+      id: 4,
+      title: "Цель игры - мат",
+      description: "Научись ставить мат в один ход",
+      difficulty: "medium",
+      completed: false,
+      lessonNumber: 4,
+      route: "/lessons/4"
+    },
+    {
+      id: 5,
+      title: "Защита от шаха",
+      description: "Узнай, как защищаться от шахов соперника",
+      difficulty: "medium",
+      locked: true,
+      lessonNumber: 5,
+      route: "/lessons/5"
+    },
+    {
+      id: 6,
+      title: "Рокировка",
+      description: "Изучи специальный ход - рокировку, и когда её делать",
+      difficulty: "medium",
+      locked: true,
+      lessonNumber: 6,
+      route: "/lessons/6"
+    }
+  ];
+  
+  const intermediateLessons = [
+    {
+      id: 7,
+      title: "Основы тактики",
+      description: "Изучи базовые тактические приёмы: вилки и связки",
+      difficulty: "medium",
+      locked: true,
+      lessonNumber: 1,
+      route: "/lessons/7"
+    },
+    {
+      id: 8,
+      title: "Двойной удар",
+      description: "Научись атаковать две цели одновременно",
+      difficulty: "medium",
+      locked: true,
+      lessonNumber: 2,
+      route: "/lessons/8"
+    },
+    {
+      id: 9,
+      title: "Открытое нападение",
+      description: "Освой тактику открытого нападения",
+      difficulty: "hard",
+      locked: true,
+      lessonNumber: 3,
+      route: "/lessons/9"
+    }
+  ];
+  
+  const advancedLessons = [
+    {
+      id: 10,
+      title: "Дебютные принципы",
+      description: "Изучи основные принципы дебюта",
+      difficulty: "medium",
+      locked: true,
+      lessonNumber: 1,
+      route: "/lessons/10"
+    },
+    {
+      id: 11,
+      title: "Пешечные структуры",
+      description: "Узнай, как правильно расположить пешки",
+      difficulty: "hard",
+      locked: true,
+      lessonNumber: 2,
+      route: "/lessons/11"
+    },
+    {
+      id: 12,
+      title: "Эндшпильная техника",
+      description: "Освой технику игры в окончаниях",
+      difficulty: "hard",
+      locked: true,
+      lessonNumber: 3,
+      route: "/lessons/12"
+    }
+  ];
+  
+  // Рассчитываем прогресс
+  const completedLessons = beginnerLessons.filter(lesson => lesson.completed).length;
+  const totalLessons = beginnerLessons.length;
+  const progressPercentage = (completedLessons / totalLessons) * 100;
+  
   return (
     <ChessLayout>
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6 text-chess-primary">Интерактивные уроки</h1>
-        <p className="text-xl mb-8">
-          Учись играть в шахматы с помощью наших интерактивных уроков для всех уровней подготовки!
+      <section className="mb-8">
+        <h1 className="text-4xl font-bold mb-4 text-chess-primary">Шахматные уроки</h1>
+        <p className="text-xl mb-6">
+          Интерактивные уроки, которые помогут тебе научиться играть в шахматы и стать чемпионом!
         </p>
-
-        <div className="mb-8">
-          <div className="relative">
-            <Input
-              className="pl-10 bg-white"
-              placeholder="Поиск уроков..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+      </section>
+      
+      <section className="mb-8 bg-white p-6 rounded-lg shadow-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+          <div>
+            <h2 className="text-2xl font-bold text-chess-primary">Твой прогресс</h2>
+            <p className="text-gray-600">Пройдено {completedLessons} из {totalLessons} уроков</p>
+          </div>
+          <div className="flex items-center mt-4 md:mt-0">
+            <TrophyIcon className="h-8 w-8 text-yellow-400 mr-2" />
+            <div>
+              <p className="font-bold">Ранг: Новичок</p>
+              <p className="text-sm text-gray-600">50 XP до следующего уровня</p>
+            </div>
           </div>
         </div>
-
-        <Tabs defaultValue="all" value={activeTab} onValueChange={handleTabChange} className="mb-8">
-          <TabsList className="grid grid-cols-4 mb-6">
-            <TabsTrigger value="all">Все уроки</TabsTrigger>
-            <TabsTrigger value="basic">Для начинающих</TabsTrigger>
-            <TabsTrigger value="intermediate">Средний уровень</TabsTrigger>
-            <TabsTrigger value="advanced">Продвинутый</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredLessons.map(lesson => (
-                <LessonCard 
-                  key={lesson.id}
-                  title={lesson.title}
-                  description={lesson.description}
-                  level={lesson.level as any}
-                  imageUrl={lesson.imageUrl}
-                  lessonId={lesson.id}
-                />
-              ))}
-            </div>
-            {filteredLessons.length === 0 && (
-              <div className="text-center py-10">
-                <h3 className="text-2xl font-bold mb-2">Уроки не найдены</h3>
-                <p className="text-gray-600 mb-6">Попробуйте изменить критерии поиска</p>
-                <Button onClick={() => {setSearchTerm(""); setActiveTab("all");}}>
-                  Сбросить фильтры
-                </Button>
-              </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="basic" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredLessons.map(lesson => (
-                <LessonCard 
-                  key={lesson.id}
-                  title={lesson.title}
-                  description={lesson.description}
-                  level={lesson.level as any}
-                  imageUrl={lesson.imageUrl}
-                  lessonId={lesson.id}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="intermediate" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredLessons.map(lesson => (
-                <LessonCard 
-                  key={lesson.id}
-                  title={lesson.title}
-                  description={lesson.description}
-                  level={lesson.level as any}
-                  imageUrl={lesson.imageUrl}
-                  lessonId={lesson.id}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="advanced" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredLessons.map(lesson => (
-                <LessonCard 
-                  key={lesson.id}
-                  title={lesson.title}
-                  description={lesson.description}
-                  level={lesson.level as any}
-                  imageUrl={lesson.imageUrl}
-                  lessonId={lesson.id}
-                />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        <div className="bg-chess-light rounded-lg p-6 mt-10">
-          <h2 className="text-2xl font-bold mb-4 text-chess-primary">Для учителей и родителей</h2>
-          <p className="mb-4">
-            Наши интерактивные уроки разработаны педагогами и шахматными тренерами специально для детей. 
-            Они помогут вашему ребенку не только освоить шахматы, но и развить:
-          </p>
-          <ul className="list-disc list-inside space-y-2 mb-6">
-            <li>Логическое мышление и способность планировать</li>
-            <li>Концентрацию внимания</li>
-            <li>Память и пространственное мышление</li>
-            <li>Умение принимать решения</li>
-            <li>Способность анализировать и оценивать ситуацию</li>
-          </ul>
-          <Button className="bg-chess-secondary hover:bg-chess-primary">
-            Для преподавателей
-          </Button>
-        </div>
-      </div>
+        <Progress value={progressPercentage} className="h-3" />
+      </section>
+      
+      <Tabs defaultValue="beginner" className="mb-10">
+        <TabsList className="grid grid-cols-3 w-full max-w-md mb-8">
+          <TabsTrigger value="beginner">Новичок</TabsTrigger>
+          <TabsTrigger value="intermediate">Средний</TabsTrigger>
+          <TabsTrigger value="advanced">Продвинутый</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="beginner" className="animate-fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {beginnerLessons.map((lesson) => (
+              <LessonCard
+                key={lesson.id}
+                title={lesson.title}
+                description={lesson.description}
+                difficulty={lesson.difficulty as any}
+                completed={lesson.completed}
+                locked={lesson.locked}
+                lessonNumber={lesson.lessonNumber}
+                route={lesson.route}
+              />
+            ))}
+          </div>
+          
+          <div className="flex justify-between mt-8">
+            <Button variant="outline" disabled>
+              <ArrowLeftIcon className="mr-2 h-4 w-4" />
+              Предыдущая страница
+            </Button>
+            <Button className="bg-chess-primary hover:bg-purple-700">
+              Следующая страница
+              <ArrowRightIcon className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="intermediate" className="animate-fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {intermediateLessons.map((lesson) => (
+              <LessonCard
+                key={lesson.id}
+                title={lesson.title}
+                description={lesson.description}
+                difficulty={lesson.difficulty as any}
+                completed={lesson.completed}
+                locked={lesson.locked}
+                lessonNumber={lesson.lessonNumber}
+                route={lesson.route}
+              />
+            ))}
+          </div>
+          
+          <div className="text-center mt-8 p-6 bg-gray-50 rounded-lg">
+            <h3 className="text-xl font-bold mb-2">Разблокируй средний уровень!</h3>
+            <p className="mb-4">
+              Чтобы получить доступ к этим урокам, сначала пройди все уроки для новичков.
+            </p>
+            <Button className="bg-chess-primary hover:bg-purple-700">
+              Перейти к начальным урокам
+            </Button>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="advanced" className="animate-fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {advancedLessons.map((lesson) => (
+              <LessonCard
+                key={lesson.id}
+                title={lesson.title}
+                description={lesson.description}
+                difficulty={lesson.difficulty as any}
+                completed={lesson.completed}
+                locked={lesson.locked}
+                lessonNumber={lesson.lessonNumber}
+                route={lesson.route}
+              />
+            ))}
+          </div>
+          
+          <div className="text-center mt-8 p-6 bg-gray-50 rounded-lg">
+            <h3 className="text-xl font-bold mb-2">Готов к сложным задачам?</h3>
+            <p className="mb-4">
+              Эти продвинутые уроки помогут тебе стать настоящим шахматным мастером!
+              Сначала пройди уроки среднего уровня.
+            </p>
+            <Button className="bg-chess-primary hover:bg-purple-700">
+              Перейти к урокам среднего уровня
+            </Button>
+          </div>
+        </TabsContent>
+      </Tabs>
     </ChessLayout>
   );
 };
