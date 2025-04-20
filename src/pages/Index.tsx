@@ -4,7 +4,7 @@ import ChessPiece from "@/components/ChessPiece";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { BookOpen, ChessIcon, Lightbulb } from "lucide-react";
+import { BookOpen, CheckSquare, Lightbulb } from "lucide-react";
 
 const Index = () => {
   return (
@@ -65,7 +65,7 @@ const Index = () => {
             <CardContent className="pt-6">
               <div className="text-center">
                 <div className="bg-chess-secondary inline-flex p-4 rounded-full mb-4">
-                  <ChessIcon className="h-10 w-10 text-white" />
+                  <CheckSquare className="h-10 w-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Стратегии</h3>
                 <p className="mb-4">
